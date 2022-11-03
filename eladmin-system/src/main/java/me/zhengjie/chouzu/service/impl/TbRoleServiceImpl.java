@@ -1,18 +1,18 @@
 /*
-*  Copyright 2019-2020 Zheng Jie
-*
-*  Licensed under the Apache License, Version 2.0 (the "License");
-*  you may not use this file except in compliance with the License.
-*  You may obtain a copy of the License at
-*
-*  http://www.apache.org/licenses/LICENSE-2.0
-*
-*  Unless required by applicable law or agreed to in writing, software
-*  distributed under the License is distributed on an "AS IS" BASIS,
-*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-*  See the License for the specific language governing permissions and
-*  limitations under the License.
-*/
+ *  Copyright 2019-2020 Zheng Jie
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package me.zhengjie.chouzu.service.impl;
 
 import lombok.RequiredArgsConstructor;
@@ -36,11 +36,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
-* @website https://eladmin.vip
-* @description 服务实现
-* @author cuichuang
-* @date 2022-11-01
-**/
+ * @author cuichuang
+ * @website https://eladmin.vip
+ * @description 服务实现
+ * @date 2022-11-01
+ **/
 @Service
 @RequiredArgsConstructor
 public class TbRoleServiceImpl implements TbRoleService {
@@ -49,21 +49,21 @@ public class TbRoleServiceImpl implements TbRoleService {
     private final TbRoleMapper tbRoleMapper;
 
     @Override
-    public Map<String,Object> queryAll(TbRoleQueryCriteria criteria, Pageable pageable){
-        Page<TbRole> page = tbRoleRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
+    public Map<String, Object> queryAll(TbRoleQueryCriteria criteria, Pageable pageable) {
+        Page<TbRole> page = tbRoleRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder), pageable);
         return PageUtil.toPage(page.map(tbRoleMapper::toDto));
     }
 
     @Override
-    public List<TbRoleDto> queryAll(TbRoleQueryCriteria criteria){
-        return tbRoleMapper.toDto(tbRoleRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
+    public List<TbRoleDto> queryAll(TbRoleQueryCriteria criteria) {
+        return tbRoleMapper.toDto(tbRoleRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder)));
     }
 
     @Override
     @Transactional
     public TbRoleDto findById(Long roleId) {
         TbRole tbRole = tbRoleRepository.findById(roleId).orElseGet(TbRole::new);
-        ValidationUtil.isNull(tbRole.getRoleId(),"TbRole","roleId",roleId);
+        ValidationUtil.isNull(tbRole.getRoleId(), "TbRole", "roleId", roleId);
         return tbRoleMapper.toDto(tbRole);
     }
 
@@ -80,7 +80,7 @@ public class TbRoleServiceImpl implements TbRoleService {
     public void update(TbRole resources) {
         String currentUser = SecurityUtils.getCurrentUsername();
         TbRole tbRole = tbRoleRepository.findById(resources.getRoleId()).orElseGet(TbRole::new);
-        ValidationUtil.isNull( tbRole.getRoleId(),"TbRole","id",resources.getRoleId());
+        ValidationUtil.isNull(tbRole.getRoleId(), "TbRole", "id", resources.getRoleId());
         tbRole.copy(resources);
         tbRole.setUpdateBy(currentUser);
         tbRoleRepository.save(tbRole);
@@ -97,7 +97,7 @@ public class TbRoleServiceImpl implements TbRoleService {
     public void download(List<TbRoleDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (TbRoleDto tbRole : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("角色名称", tbRole.getRoleName());
             map.put("创建者", tbRole.getCreateBy());
             map.put("创建时间", tbRole.getCreateTime());

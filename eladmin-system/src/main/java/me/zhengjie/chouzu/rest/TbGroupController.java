@@ -1,18 +1,18 @@
 /*
-*  Copyright 2019-2020 Zheng Jie
-*
-*  Licensed under the Apache License, Version 2.0 (the "License");
-*  you may not use this file except in compliance with the License.
-*  You may obtain a copy of the License at
-*
-*  http://www.apache.org/licenses/LICENSE-2.0
-*
-*  Unless required by applicable law or agreed to in writing, software
-*  distributed under the License is distributed on an "AS IS" BASIS,
-*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-*  See the License for the specific language governing permissions and
-*  limitations under the License.
-*/
+ *  Copyright 2019-2020 Zheng Jie
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package me.zhengjie.chouzu.rest;
 
 import me.zhengjie.annotation.Log;
@@ -27,14 +27,15 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
+
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
 /**
-* @website https://eladmin.vip
-* @author cuichuang
-* @date 2022-11-01
-**/
+ * @author cuichuang
+ * @website https://eladmin.vip
+ * @date 2022-11-01
+ **/
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "分组表管理")
@@ -55,23 +56,23 @@ public class TbGroupController {
     @Log("查询分组表")
     @ApiOperation("查询分组表")
     @PreAuthorize("@el.check('tbGroup:list')")
-    public ResponseEntity<Object> queryTbGroup(TbGroupQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity<>(tbGroupService.queryAll(criteria,pageable),HttpStatus.OK);
+    public ResponseEntity<Object> queryTbGroup(TbGroupQueryCriteria criteria, Pageable pageable) {
+        return new ResponseEntity<>(tbGroupService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
     @PostMapping
     @Log("新增分组表")
     @ApiOperation("新增分组表")
     @PreAuthorize("@el.check('tbGroup:add')")
-    public ResponseEntity<Object> createTbGroup(@Validated @RequestBody TbGroup resources){
-        return new ResponseEntity<>(tbGroupService.create(resources),HttpStatus.CREATED);
+    public ResponseEntity<Object> createTbGroup(@Validated @RequestBody TbGroup resources) {
+        return new ResponseEntity<>(tbGroupService.create(resources), HttpStatus.CREATED);
     }
 
     @PutMapping
     @Log("修改分组表")
     @ApiOperation("修改分组表")
     @PreAuthorize("@el.check('tbGroup:edit')")
-    public ResponseEntity<Object> updateTbGroup(@Validated @RequestBody TbGroup resources){
+    public ResponseEntity<Object> updateTbGroup(@Validated @RequestBody TbGroup resources) {
         tbGroupService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

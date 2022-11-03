@@ -1,18 +1,18 @@
 /*
-*  Copyright 2019-2020 Zheng Jie
-*
-*  Licensed under the Apache License, Version 2.0 (the "License");
-*  you may not use this file except in compliance with the License.
-*  You may obtain a copy of the License at
-*
-*  http://www.apache.org/licenses/LICENSE-2.0
-*
-*  Unless required by applicable law or agreed to in writing, software
-*  distributed under the License is distributed on an "AS IS" BASIS,
-*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-*  See the License for the specific language governing permissions and
-*  limitations under the License.
-*/
+ *  Copyright 2019-2020 Zheng Jie
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package me.zhengjie.chouzu.service.impl;
 
 import me.zhengjie.chouzu.domain.TbStaff;
@@ -36,11 +36,11 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 /**
-* @website https://eladmin.vip
-* @description 服务实现
-* @author cuichuang
-* @date 2022-11-01
-**/
+ * @author cuichuang
+ * @website https://eladmin.vip
+ * @description 服务实现
+ * @date 2022-11-01
+ **/
 @Service
 @RequiredArgsConstructor
 public class TbStaffServiceImpl implements TbStaffService {
@@ -49,21 +49,21 @@ public class TbStaffServiceImpl implements TbStaffService {
     private final TbStaffMapper tbStaffMapper;
 
     @Override
-    public Map<String,Object> queryAll(TbStaffQueryCriteria criteria, Pageable pageable){
-        Page<TbStaff> page = tbStaffRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
+    public Map<String, Object> queryAll(TbStaffQueryCriteria criteria, Pageable pageable) {
+        Page<TbStaff> page = tbStaffRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder), pageable);
         return PageUtil.toPage(page.map(tbStaffMapper::toDto));
     }
 
     @Override
-    public List<TbStaffDto> queryAll(TbStaffQueryCriteria criteria){
-        return tbStaffMapper.toDto(tbStaffRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
+    public List<TbStaffDto> queryAll(TbStaffQueryCriteria criteria) {
+        return tbStaffMapper.toDto(tbStaffRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder)));
     }
 
     @Override
     @Transactional
     public TbStaffDto findById(Long staffId) {
         TbStaff tbStaff = tbStaffRepository.findById(staffId).orElseGet(TbStaff::new);
-        ValidationUtil.isNull(tbStaff.getStaffId(),"TbStaff","staffId",staffId);
+        ValidationUtil.isNull(tbStaff.getStaffId(), "TbStaff", "staffId", staffId);
         return tbStaffMapper.toDto(tbStaff);
     }
 
@@ -80,7 +80,7 @@ public class TbStaffServiceImpl implements TbStaffService {
     public void update(TbStaff resources) {
         String currentUser = SecurityUtils.getCurrentUsername();
         TbStaff tbStaff = tbStaffRepository.findById(resources.getStaffId()).orElseGet(TbStaff::new);
-        ValidationUtil.isNull( tbStaff.getStaffId(),"TbStaff","id",resources.getStaffId());
+        ValidationUtil.isNull(tbStaff.getStaffId(), "TbStaff", "id", resources.getStaffId());
         tbStaff.copy(resources);
         tbStaff.setUpdateBy(currentUser);
         tbStaffRepository.save(tbStaff);
@@ -97,7 +97,7 @@ public class TbStaffServiceImpl implements TbStaffService {
     public void download(List<TbStaffDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (TbStaffDto tbStaff : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("分组名称", tbStaff.getGruopId());
             map.put("人员名称", tbStaff.getName());
             map.put("性别", tbStaff.getGender());

@@ -1,18 +1,18 @@
 /*
-*  Copyright 2019-2020 Zheng Jie
-*
-*  Licensed under the Apache License, Version 2.0 (the "License");
-*  you may not use this file except in compliance with the License.
-*  You may obtain a copy of the License at
-*
-*  http://www.apache.org/licenses/LICENSE-2.0
-*
-*  Unless required by applicable law or agreed to in writing, software
-*  distributed under the License is distributed on an "AS IS" BASIS,
-*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-*  See the License for the specific language governing permissions and
-*  limitations under the License.
-*/
+ *  Copyright 2019-2020 Zheng Jie
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package me.zhengjie.chouzu.service.impl;
 
 import me.zhengjie.chouzu.domain.TbGroup;
@@ -36,11 +36,11 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 /**
-* @website https://eladmin.vip
-* @description 服务实现
-* @author cuichuang
-* @date 2022-11-01
-**/
+ * @author cuichuang
+ * @website https://eladmin.vip
+ * @description 服务实现
+ * @date 2022-11-01
+ **/
 @Service
 @RequiredArgsConstructor
 public class TbGroupServiceImpl implements TbGroupService {
@@ -49,21 +49,21 @@ public class TbGroupServiceImpl implements TbGroupService {
     private final TbGroupMapper tbGroupMapper;
 
     @Override
-    public Map<String,Object> queryAll(TbGroupQueryCriteria criteria, Pageable pageable){
-        Page<TbGroup> page = tbGroupRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
+    public Map<String, Object> queryAll(TbGroupQueryCriteria criteria, Pageable pageable) {
+        Page<TbGroup> page = tbGroupRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder), pageable);
         return PageUtil.toPage(page.map(tbGroupMapper::toDto));
     }
 
     @Override
-    public List<TbGroupDto> queryAll(TbGroupQueryCriteria criteria){
-        return tbGroupMapper.toDto(tbGroupRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
+    public List<TbGroupDto> queryAll(TbGroupQueryCriteria criteria) {
+        return tbGroupMapper.toDto(tbGroupRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder)));
     }
 
     @Override
     @Transactional
     public TbGroupDto findById(Long gruopId) {
         TbGroup tbGroup = tbGroupRepository.findById(gruopId).orElseGet(TbGroup::new);
-        ValidationUtil.isNull(tbGroup.getGruopId(),"TbGroup","gruopId",gruopId);
+        ValidationUtil.isNull(tbGroup.getGruopId(), "TbGroup", "gruopId", gruopId);
         return tbGroupMapper.toDto(tbGroup);
     }
 
@@ -80,7 +80,7 @@ public class TbGroupServiceImpl implements TbGroupService {
     public void update(TbGroup resources) {
         String currentUser = SecurityUtils.getCurrentUsername();
         TbGroup tbGroup = tbGroupRepository.findById(resources.getGruopId()).orElseGet(TbGroup::new);
-        ValidationUtil.isNull( tbGroup.getGruopId(),"TbGroup","id",resources.getGruopId());
+        ValidationUtil.isNull(tbGroup.getGruopId(), "TbGroup", "id", resources.getGruopId());
         tbGroup.copy(resources);
         tbGroup.setUpdateBy(currentUser);
         tbGroupRepository.save(tbGroup);
@@ -97,7 +97,7 @@ public class TbGroupServiceImpl implements TbGroupService {
     public void download(List<TbGroupDto> all, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         for (TbGroupDto tbGroup : all) {
-            Map<String,Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new LinkedHashMap<>();
             map.put("分组名称", tbGroup.getGroupName());
             map.put("分组方式：0手动，1自动", tbGroup.getGroupWay());
             map.put("创建者", tbGroup.getCreateBy());
