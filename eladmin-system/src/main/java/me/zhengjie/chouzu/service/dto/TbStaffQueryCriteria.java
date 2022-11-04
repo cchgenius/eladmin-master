@@ -51,5 +51,5 @@ public class TbStaffQueryCriteria {
      * 精确
      */
     @Query
-    private Integer isGruop;
+    private Integer isGroup;
 }

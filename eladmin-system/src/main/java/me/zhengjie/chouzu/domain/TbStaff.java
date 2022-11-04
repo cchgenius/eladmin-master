@@ -71,9 +71,9 @@ public class TbStaff implements Serializable {
     @ApiModelProperty(value = "邮箱")
     private String email;
 
-    @Column(name = "`is_gruop`")
+    @Column(name = "`is_group`")
     @ApiModelProperty(value = "是否已分组：0未分组，1已分组")
-    private Integer isGruop;
+    private Integer isGroup;
 
     @Column(name = "`create_by`")
     @ApiModelProperty(value = "创建者")

@@ -104,7 +104,7 @@ public class TbStaffServiceImpl implements TbStaffService {
             map.put("年龄", tbStaff.getAge());
             map.put("手机号码", tbStaff.getPhone());
             map.put("邮箱", tbStaff.getEmail());
-            map.put("是否已分组：0未分组，1已分组", tbStaff.getIsGruop());
+            map.put("是否已分组：0未分组，1已分组", tbStaff.getIsGroup());
             map.put("创建者", tbStaff.getCreateBy());
             map.put("创建时间", tbStaff.getCreateTime());
             map.put("更新者", tbStaff.getUpdateBy());

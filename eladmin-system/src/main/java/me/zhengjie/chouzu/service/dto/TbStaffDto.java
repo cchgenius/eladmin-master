@@ -67,7 +67,7 @@ public class TbStaffDto implements Serializable {
     /**
      * 是否已分组：0未分组，1已分组
      */
-    private Integer isGruop;
+    private Integer isGroup;
 
     /**
      * 创建者
