@@ -61,9 +61,9 @@ public class TbGroupServiceImpl implements TbGroupService {
 
     @Override
     @Transactional
-    public TbGroupDto findById(Long gruopId) {
-        TbGroup tbGroup = tbGroupRepository.findById(gruopId).orElseGet(TbGroup::new);
-        ValidationUtil.isNull(tbGroup.getGruopId(), "TbGroup", "gruopId", gruopId);
+    public TbGroupDto findById(Long groupId) {
+        TbGroup tbGroup = tbGroupRepository.findById(groupId).orElseGet(TbGroup::new);
+        ValidationUtil.isNull(tbGroup.getGroupId(), "TbGroup", "groupId", groupId);
         return tbGroupMapper.toDto(tbGroup);
     }
 
@@ -79,8 +79,8 @@ public class TbGroupServiceImpl implements TbGroupService {
     @Transactional(rollbackFor = Exception.class)
     public void update(TbGroup resources) {
         String currentUser = SecurityUtils.getCurrentUsername();
-        TbGroup tbGroup = tbGroupRepository.findById(resources.getGruopId()).orElseGet(TbGroup::new);
-        ValidationUtil.isNull(tbGroup.getGruopId(), "TbGroup", "id", resources.getGruopId());
+        TbGroup tbGroup = tbGroupRepository.findById(resources.getGroupId()).orElseGet(TbGroup::new);
+        ValidationUtil.isNull(tbGroup.getGroupId(), "TbGroup", "id", resources.getGroupId());
         tbGroup.copy(resources);
         tbGroup.setUpdateBy(currentUser);
         tbGroupRepository.save(tbGroup);
@@ -88,8 +88,8 @@ public class TbGroupServiceImpl implements TbGroupService {
 
     @Override
     public void deleteAll(Long[] ids) {
-        for (Long gruopId : ids) {
-            tbGroupRepository.deleteById(gruopId);
+        for (Long groupId : ids) {
+            tbGroupRepository.deleteById(groupId);
         }
     }
 

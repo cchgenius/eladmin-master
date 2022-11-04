@@ -53,10 +53,10 @@ public interface TbGroupService {
     /**
      * 根据ID查询
      *
-     * @param gruopId ID
+     * @param groupId ID
      * @return TbGroupDto
      */
-    TbGroupDto findById(Long gruopId);
+    TbGroupDto findById(Long groupId);
 
     /**
      * 创建

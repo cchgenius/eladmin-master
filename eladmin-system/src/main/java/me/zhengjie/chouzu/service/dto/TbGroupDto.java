@@ -32,7 +32,7 @@ public class TbGroupDto implements Serializable {
     /**
      * id
      */
-    private Long gruopId;
+    private Long groupId;
 
     /**
      * 分组名称

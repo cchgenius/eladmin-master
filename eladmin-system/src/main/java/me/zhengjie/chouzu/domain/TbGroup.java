@@ -43,9 +43,9 @@ public class TbGroup implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "`gruop_id`")
+    @Column(name = "`group_id`")
     @ApiModelProperty(value = "id")
-    private Long gruopId;
+    private Long groupId;
 
     @Column(name = "`group_name`", nullable = false)
     @NotBlank

@@ -98,7 +98,7 @@ public class TbStaffServiceImpl implements TbStaffService {
         List<Map<String, Object>> list = new ArrayList<>();
         for (TbStaffDto tbStaff : all) {
             Map<String, Object> map = new LinkedHashMap<>();
-            map.put("分组名称", tbStaff.getGruopId());
+            map.put("分组名称", tbStaff.getGroupId());
             map.put("人员名称", tbStaff.getName());
             map.put("性别", tbStaff.getGender());
             map.put("年龄", tbStaff.getAge());

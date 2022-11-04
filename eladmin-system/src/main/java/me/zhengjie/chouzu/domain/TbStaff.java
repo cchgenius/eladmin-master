@@ -47,9 +47,9 @@ public class TbStaff implements Serializable {
     @ApiModelProperty(value = "人员id")
     private Long staffId;
 
-    @Column(name = "`gruop_id`")
+    @Column(name = "`group_id`")
     @ApiModelProperty(value = "分组名称")
-    private Long gruopId;
+    private Long groupId;
 
     @Column(name = "`name`")
     @ApiModelProperty(value = "人员名称")

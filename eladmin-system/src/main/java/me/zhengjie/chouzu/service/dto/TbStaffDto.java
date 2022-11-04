@@ -37,7 +37,7 @@ public class TbStaffDto implements Serializable {
     /**
      * 分组名称
      */
-    private Long gruopId;
+    private Long groupId;
 
     /**
      * 人员名称

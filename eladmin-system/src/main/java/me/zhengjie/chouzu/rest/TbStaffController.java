@@ -60,11 +60,21 @@ public class TbStaffController {
         return new ResponseEntity<>(tbStaffService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
+    @GetMapping("/notGroup")
+    @Log("查询未分组人员")
+    @ApiOperation("查询未分组人员")
+    @PreAuthorize("@el.check('tbStaff:list')")
+    public ResponseEntity<Object> notGroup(TbStaffQueryCriteria criteria, Pageable pageable) {
+        criteria.setIsGroup(0);
+        return new ResponseEntity<>(tbStaffService.queryAll(criteria, pageable), HttpStatus.OK);
+    }
+
     @PostMapping
     @Log("新增人员")
     @ApiOperation("新增人员")
     @PreAuthorize("@el.check('tbStaff:add')")
     public ResponseEntity<Object> createTbStaff(@Validated @RequestBody TbStaff resources) {
+        resources.setIsGroup(0);
         return new ResponseEntity<>(tbStaffService.create(resources), HttpStatus.CREATED);
     }
 
