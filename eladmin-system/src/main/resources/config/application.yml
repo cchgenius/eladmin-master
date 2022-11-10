@@ -23,7 +23,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-
+        order_updates: true
+        jdbc:
+          batch_size: 500
   redis:
     #数据库索引
     database: ${REDIS_DB:1}

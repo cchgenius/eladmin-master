@@ -32,7 +32,7 @@ public class TbRoleDto implements Serializable {
     /**
      * 角色id
      */
-    private Long roleId;
+    private String roleId;
 
     /**
      * 角色名称

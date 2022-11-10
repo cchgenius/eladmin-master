@@ -47,15 +47,14 @@ public class TbGroup implements Serializable {
     @ApiModelProperty(value = "id")
     private Long groupId;
 
-    @Column(name = "`group_name`", nullable = false)
-    @NotBlank
+    @Column(name = "`group_name`")
     @ApiModelProperty(value = "分组名称")
     private String groupName;
 
     @Column(name = "`group_way`", nullable = false)
     @NotNull
     @ApiModelProperty(value = "分组方式：0手动，1自动")
-    private Integer groupWay;
+    private String groupWay;
 
     @Column(name = "`create_by`")
     @ApiModelProperty(value = "创建者")

@@ -45,7 +45,7 @@ public class TbStaff implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "`staff_id`")
     @ApiModelProperty(value = "人员id")
-    private Long staffId;
+    private Integer staffId;
 
     @Column(name = "`group_id`")
     @ApiModelProperty(value = "分组名称")
@@ -73,7 +73,7 @@ public class TbStaff implements Serializable {
 
     @Column(name = "`is_group`")
     @ApiModelProperty(value = "是否已分组：0未分组，1已分组")
-    private Integer isGroup;
+    private String isGroup;
 
     @Column(name = "`create_by`")
     @ApiModelProperty(value = "创建者")
@@ -95,7 +95,7 @@ public class TbStaff implements Serializable {
 
     @Column(name = "`role_id`")
     @ApiModelProperty(value = "角色")
-    private Long roleId;
+    private String roleId;
 
     public void copy(TbStaff source) {
         BeanUtil.copyProperties(source, this, CopyOptions.create().setIgnoreNullValue(true));

@@ -56,7 +56,7 @@ public interface TbRoleService {
      * @param roleId ID
      * @return TbRoleDto
      */
-    TbRoleDto findById(Long roleId);
+    TbRoleDto findById(String roleId);
 
     /**
      * 创建
@@ -71,14 +71,14 @@ public interface TbRoleService {
      *
      * @param resources /
      */
-    void update(TbRole resources);
+    //void update(TbRole resources);
 
     /**
      * 多选删除
      *
      * @param ids /
      */
-    void deleteAll(Long[] ids);
+    void deleteAll(String[] ids);
 
     /**
      * 导出数据

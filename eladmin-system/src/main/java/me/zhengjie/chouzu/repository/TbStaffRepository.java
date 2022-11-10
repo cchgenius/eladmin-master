@@ -18,11 +18,49 @@ package me.zhengjie.chouzu.repository;
 import me.zhengjie.chouzu.domain.TbStaff;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author cuichuang
  * @website https://eladmin.vip
  * @date 2022-11-01
  **/
-public interface TbStaffRepository extends JpaRepository<TbStaff, Long>, JpaSpecificationExecutor<TbStaff> {
+public interface TbStaffRepository extends JpaRepository<TbStaff, Integer>, JpaSpecificationExecutor<TbStaff> {
+
+    @Modifying
+    @Transactional
+    @Query(value = "update tb_staff\n" +
+            "set tb_staff.group_id=?2,\n" +
+            "    tb_staff.is_group=?3\n" +
+            "where tb_staff.staff_id = ?1", nativeQuery = true)
+    int sdfz(Integer staffId, @Param("groupId") Long groupId, @Param("isGroup") String isGroup);
+
+    /*
+        后端开发人员总数
+     */
+    @Query(value = "SELECT staff_id FROM tb_staff WHERE role_id = '1' and is_group = '0'", nativeQuery = true)
+    List<Integer> countBackend();
+
+    /*
+        前端开发人员总数
+     */
+    @Query(value = "SELECT staff_id FROM tb_staff WHERE role_id = '2' and is_group = '0'", nativeQuery = true)
+    List<Integer> countFront();
+
+    /*
+        测试人员总数
+     */
+    @Query(value = "SELECT staff_id FROM tb_staff WHERE role_id = '3' and is_group = '0'", nativeQuery = true)
+    List<Integer> countTest();
+
+    /*
+        项目经理人员总数
+     */
+    @Query(value = "SELECT staff_id FROM tb_staff WHERE role_id = '4' and is_group = '0'", nativeQuery = true)
+    List<Integer> countManager();
 }

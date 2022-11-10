@@ -56,7 +56,7 @@ public interface TbStaffService {
      * @param staffId ID
      * @return TbStaffDto
      */
-    TbStaffDto findById(Long staffId);
+    TbStaffDto findById(Integer staffId);
 
     /**
      * 创建
@@ -65,6 +65,18 @@ public interface TbStaffService {
      * @return TbStaffDto
      */
     TbStaffDto create(TbStaff resources);
+
+    /*
+        手动分组
+     */
+    void shoudong(Integer[] ids, Long groupId, String groupWay);
+
+    void sd(List<TbStaff> staffList);
+
+    /*
+        自动分组
+     */
+    void zidong(Integer backend, Integer front, Integer test, Integer manager, Long groupId, String groupWay);
 
     /**
      * 编辑
@@ -78,7 +90,7 @@ public interface TbStaffService {
      *
      * @param ids /
      */
-    void deleteAll(Long[] ids);
+    void deleteAll(Integer[] ids);
 
     /**
      * 导出数据

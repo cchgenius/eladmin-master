@@ -68,20 +68,20 @@ public class TbRoleController {
         return new ResponseEntity<>(tbRoleService.create(resources), HttpStatus.CREATED);
     }
 
-    @PutMapping
-    @Log("修改角色表")
-    @ApiOperation("修改角色表")
-    @PreAuthorize("@el.check('tbRole:edit')")
-    public ResponseEntity<Object> updateTbRole(@Validated @RequestBody TbRole resources) {
-        tbRoleService.update(resources);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+//    @PutMapping
+//    @Log("修改角色表")
+//    @ApiOperation("修改角色表")
+//    @PreAuthorize("@el.check('tbRole:edit')")
+//    public ResponseEntity<Object> updateTbRole(@Validated @RequestBody TbRole resources) {
+//        tbRoleService.update(resources);
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
 
     @DeleteMapping
     @Log("删除角色表")
     @ApiOperation("删除角色表")
     @PreAuthorize("@el.check('tbRole:del')")
-    public ResponseEntity<Object> deleteTbRole(@RequestBody Long[] ids) {
+    public ResponseEntity<Object> deleteTbRole(@RequestBody String[] ids) {
         tbRoleService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);
     }

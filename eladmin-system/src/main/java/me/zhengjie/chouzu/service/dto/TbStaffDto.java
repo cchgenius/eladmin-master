@@ -32,7 +32,7 @@ public class TbStaffDto implements Serializable {
     /**
      * 人员id
      */
-    private Long staffId;
+    private Integer staffId;
 
     /**
      * 分组名称
@@ -67,7 +67,7 @@ public class TbStaffDto implements Serializable {
     /**
      * 是否已分组：0未分组，1已分组
      */
-    private Integer isGroup;
+    private String isGroup;
 
     /**
      * 创建者
@@ -92,5 +92,5 @@ public class TbStaffDto implements Serializable {
     /**
      * 角色
      */
-    private Long roleId;
+    private String roleId;
 }

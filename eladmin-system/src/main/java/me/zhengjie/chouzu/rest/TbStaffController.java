@@ -15,21 +15,24 @@
  */
 package me.zhengjie.chouzu.rest;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import me.zhengjie.annotation.Log;
 import me.zhengjie.chouzu.domain.TbStaff;
 import me.zhengjie.chouzu.service.TbStaffService;
 import me.zhengjie.chouzu.service.dto.TbStaffQueryCriteria;
+import me.zhengjie.chouzu.service.dto.myData;
 import org.springframework.data.domain.Pageable;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.annotations.*;
 
-import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * @author cuichuang
@@ -65,7 +68,7 @@ public class TbStaffController {
     @ApiOperation("查询未分组人员")
     @PreAuthorize("@el.check('tbStaff:list')")
     public ResponseEntity<Object> notGroup(TbStaffQueryCriteria criteria, Pageable pageable) {
-        criteria.setIsGroup(0);
+        criteria.setIsGroup("0");
         return new ResponseEntity<>(tbStaffService.queryAll(criteria, pageable), HttpStatus.OK);
     }
 
@@ -74,8 +77,43 @@ public class TbStaffController {
     @ApiOperation("新增人员")
     @PreAuthorize("@el.check('tbStaff:add')")
     public ResponseEntity<Object> createTbStaff(@Validated @RequestBody TbStaff resources) {
-        resources.setIsGroup(0);
         return new ResponseEntity<>(tbStaffService.create(resources), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/shoudong")
+    @Log("手动分组")
+    @ApiOperation("手动分组")
+    @PreAuthorize("@el.check('tbStaff:edit')")
+    public ResponseEntity<Object> shoudong(@Validated @RequestBody myData data) {
+        System.out.println("*****************" + data);
+        Integer[] ids = data.getIds();
+        Long groupId = data.getGroupId();
+        String groupWay = data.getGroupWay();
+        tbStaffService.shoudong(ids, groupId, groupWay);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/sd")
+    @PreAuthorize("@el.check('tbStaff:edit')")
+    public ResponseEntity<Object> sd(@Validated @RequestBody List<TbStaff> list) {
+        tbStaffService.sd(list);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping("/zidong")
+    @Log("自动分组")
+    @ApiOperation("自动分组")
+    @PreAuthorize("@el.check('tbStaff:edit')")
+    public ResponseEntity<Object> zidong(@Validated @RequestBody myData data) {
+        System.out.println("*****************" + data);
+        Integer backend = data.getBackend();
+        Integer front = data.getFront();
+        Integer test = data.getTest();
+        Integer manager = data.getManager();
+        Long groupId = data.getGroupId();
+        String groupWay = data.getGroupWay();
+        tbStaffService.zidong(backend, front, test, manager, groupId, groupWay);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping
@@ -91,7 +129,7 @@ public class TbStaffController {
     @Log("删除人员")
     @ApiOperation("删除人员")
     @PreAuthorize("@el.check('tbStaff:del')")
-    public ResponseEntity<Object> deleteTbStaff(@RequestBody Long[] ids) {
+    public ResponseEntity<Object> deleteTbStaff(@RequestBody Integer[] ids) {
         tbStaffService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);
     }

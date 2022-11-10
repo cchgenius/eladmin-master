@@ -51,5 +51,11 @@ public class TbStaffQueryCriteria {
      * 精确
      */
     @Query
-    private Integer isGroup;
+    private String isGroup;
+
+    /**
+     * 精确
+     */
+    @Query
+    private String roleId;
 }

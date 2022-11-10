@@ -61,8 +61,8 @@ public class TbRoleServiceImpl implements TbRoleService {
 
     @Override
     @Transactional
-    public TbRoleDto findById(Long roleId) {
-        TbRole tbRole = tbRoleRepository.findById(roleId).orElseGet(TbRole::new);
+    public TbRoleDto findById(String roleId) {
+        TbRole tbRole = tbRoleRepository.findById(Long.valueOf(roleId)).orElseGet(TbRole::new);
         ValidationUtil.isNull(tbRole.getRoleId(), "TbRole", "roleId", roleId);
         return tbRoleMapper.toDto(tbRole);
     }
@@ -75,21 +75,21 @@ public class TbRoleServiceImpl implements TbRoleService {
         return tbRoleMapper.toDto(tbRoleRepository.save(resources));
     }
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void update(TbRole resources) {
-        String currentUser = SecurityUtils.getCurrentUsername();
-        TbRole tbRole = tbRoleRepository.findById(resources.getRoleId()).orElseGet(TbRole::new);
-        ValidationUtil.isNull(tbRole.getRoleId(), "TbRole", "id", resources.getRoleId());
-        tbRole.copy(resources);
-        tbRole.setUpdateBy(currentUser);
-        tbRoleRepository.save(tbRole);
-    }
+//    @Override
+//    @Transactional(rollbackFor = Exception.class)
+//    public void update(TbRole resources) {
+//        String currentUser = SecurityUtils.getCurrentUsername();
+//        TbRole tbRole = tbRoleRepository.findById(resources.getRoleId()).orElseGet(TbRole::new);
+//        ValidationUtil.isNull(tbRole.getRoleId(), "TbRole", "id", resources.getRoleId());
+//        tbRole.copy(resources);
+//        tbRole.setUpdateBy(currentUser);
+//        tbRoleRepository.save(tbRole);
+//    }
 
     @Override
-    public void deleteAll(Long[] ids) {
-        for (Long roleId : ids) {
-            tbRoleRepository.deleteById(roleId);
+    public void deleteAll(String[] ids) {
+        for (String roleId : ids) {
+            tbRoleRepository.deleteById(Long.valueOf(roleId));
         }
     }
 

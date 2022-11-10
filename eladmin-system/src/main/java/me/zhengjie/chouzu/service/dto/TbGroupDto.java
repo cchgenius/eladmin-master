@@ -42,7 +42,7 @@ public class TbGroupDto implements Serializable {
     /**
      * 分组方式：0手动，1自动
      */
-    private Integer groupWay;
+    private String groupWay;
 
     /**
      * 创建者

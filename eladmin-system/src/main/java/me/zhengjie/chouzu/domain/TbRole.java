@@ -45,7 +45,7 @@ public class TbRole implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "`role_id`")
     @ApiModelProperty(value = "角色id")
-    private Long roleId;
+    private String roleId;
 
     @Column(name = "`role_name`", nullable = false)
     @NotBlank
